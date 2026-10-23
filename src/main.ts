@@ -114,6 +114,26 @@ console.log(calculator.calculatePower(10, 3)); // MISS
 console.log(calculator.calculatePower(10, 3)); // HIT
 console.log(calculator.calculatePower(5, 2));  // MISS
 
+console.log("\n--- Ex 6 : type guard strict ---");
+const validData: unknown = {
+  id: 1,
+  name: "Harry Potter",
+  house: "Gryffindor",
+  level: 5,
+  active: true
+};
+
+const invalidData: unknown = {
+  id: 2,
+  name: "Viktor",
+  house: "Durmstrang",
+  level: 5,
+  active: true
+};
+
+console.log(isWizard(validData));   // true
+console.log(isWizard(invalidData)); // false
+
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;
 type CastResult = ReturnType<AcademyService["castSpell"]>;

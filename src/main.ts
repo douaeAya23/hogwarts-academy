@@ -60,6 +60,15 @@ spells.add({
   power: 60
 });
 
+console.log("\n--- Ex 4 : ValidateSpellPower ---");
+spells.add({ id: 103, name: "Protego Maxima", category: "defense", power: 50 });
+
+try {
+  spells.add({ id: 104, name: "Invalid Spell", category: "attack", power: -10 });
+} catch (error: unknown) {
+  console.error("Refusé :", error instanceof Error ? error.message : error);
+}
+
 const academy = new AcademyService(wizards, spells);
 
 console.log("\n--- Cast a spell ---");

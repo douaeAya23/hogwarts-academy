@@ -17,6 +17,10 @@ export class Repository<T extends { id: number }> {
     return [...this.items];
   }
 
+  protected nextId(): number {
+    return Math.max(0, ...this.items.map(item => item.id)) + 1;
+  }
+
   update(id: number, changes: Partial<T>): boolean {
     const item = this.findById(id);
 

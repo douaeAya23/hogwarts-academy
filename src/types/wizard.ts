@@ -15,7 +15,15 @@ export interface Wizard {
   [key: string]: string | number | boolean;
 }
 
-export type NewWizard = Omit<Wizard, "id">;
+// Wizard has an index signature, so Omit<Wizard, "id"> would lose the known
+// properties. We first keep only the known keys, then omit "id".
+type KnownKeys<T> = {
+  [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K];
+};
+
+export type NewWizard = Omit<KnownKeys<Wizard>, "id"> & {
+  [key: string]: string | number | boolean;
+};
 export type WizardSummary = Pick<Wizard, "id" | "name" | "house">;
 export type WizardUpdate = Partial<Wizard>;
 export type HousePoints = Record<House, number>;

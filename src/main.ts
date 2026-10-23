@@ -16,8 +16,8 @@ import { isWizard } from "./guards";
 const wizards = new WizardRepository();
 const spells = new SpellRepository();
 
-wizards.add({
-  id: 1,
+console.log("\n--- Ex 1 : addWizard ---");
+const harry = wizards.addWizard({
   name: "Harry Potter",
   house: "Gryffindor",
   level: 5,
@@ -25,21 +25,21 @@ wizards.add({
   patronus: "Stag"
 });
 
-wizards.add({
-  id: 2,
+wizards.addWizard({
   name: "Hermione Granger",
   house: "Gryffindor",
   level: 8,
   active: true
 });
 
-wizards.add({
-  id: 3,
+wizards.addWizard({
   name: "Draco Malfoy",
   house: "Slytherin",
   level: 6,
   active: true
 });
+
+console.log(harry); // id attribué automatiquement
 
 spells.add({
   id: 101,

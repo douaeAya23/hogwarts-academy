@@ -1,4 +1,10 @@
-import type { Wizard } from "../types";
+import type { NewWizard, Wizard } from "../types";
 import { Repository } from "./repository";
 
-export class WizardRepository extends Repository<Wizard> {}
+export class WizardRepository extends Repository<Wizard> {
+  addWizard(data: NewWizard): Wizard {
+    const wizard: Wizard = { ...data, id: this.nextId() };
+    this.add(wizard);
+    return wizard;
+  }
+}

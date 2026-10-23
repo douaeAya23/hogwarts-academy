@@ -22,8 +22,7 @@ export class AcademyService {
 
   findByHouse(house: House): WizardSummary[] {
     return this.wizards
-      .getAll()
-      .filter(wizard => wizard.house === house)
+      .findByHouse(house)
       .map(({ id, name, house }) => ({ id, name, house }));
   }
 

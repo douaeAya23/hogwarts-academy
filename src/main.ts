@@ -41,6 +41,10 @@ wizards.addWizard({
 
 console.log(harry); // id attribué automatiquement
 
+console.log("\n--- Ex 2 : findByHouse (repository) ---");
+console.log(wizards.findByHouse("Gryffindor")); // Harry & Hermione
+console.log(wizards.findByHouse("Slytherin"));  // Draco
+
 spells.add({
   id: 101,
   name: "Expelliarmus",

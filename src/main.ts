@@ -1,83 +1,17 @@
-import {
-  type Wizard,
-  type Spell,
-  type AcademyEvent,
-  type House,
-  type HousePoints,
-  type SpellCategory,
-  type SpellOutput,
-  type ArrayElement,
-  type WizardSummary,
-  type WizardUpdate,
-  type AttackSpell,
-  type NonHealingCategory,
+import type {
+  Spell,
+  AcademyEvent,
+  HousePoints,
+  SpellCategory,
+  SpellOutput,
+  ArrayElement,
+  AttackSpell,
+  NonHealingCategory,
 } from "./types";
 
-import { WizardRepository, SpellRepository } from "./repository";
-import { Log } from "./decorators";
-
-function isHouse(value: unknown): value is House {
-  return (
-    value === "Gryffindor" ||
-    value === "Slytherin" ||
-    value === "Ravenclaw" ||
-    value === "Hufflepuff"
-  );
-}
-
-// Type guard: safely narrow unknown data to a Wizard.
-function isWizard(value: unknown): value is Wizard {
-  if (typeof value !== "object" || value === null) {
-    return false;
-  }
-
-  const candidate = value as Record<string, unknown>;
-
-  return (
-    typeof candidate.id === "number" &&
-    typeof candidate.name === "string" &&
-    isHouse(candidate.house) &&
-    typeof candidate.level === "number" &&
-    typeof candidate.active === "boolean"
-  );
-}
-
-class AcademyService {
-  constructor(
-    private readonly wizards: WizardRepository,
-    private readonly spells: SpellRepository
-  ) {}
-
-  @Log
-  castSpell(wizardId: number, spellId: number): string {
-    const wizard = this.wizards.findById(wizardId);
-    const spell = this.spells.findById(spellId);
-
-    if (!wizard || !spell) {
-      throw new Error("Wizard or spell not found");
-    }
-
-    return `${wizard.name} casts ${spell.name}!`;
-  }
-
-  findByHouse(house: House): WizardSummary[] {
-    return this.wizards
-      .getAll()
-      .filter(wizard => wizard.house === house)
-      .map(({ id, name, house }) => ({ id, name, house }));
-  }
-
-  updateWizard(id: number, changes: WizardUpdate): boolean {
-    return this.wizards.update(id, changes);
-  }
-
-  getSpellEvents(events: AcademyEvent[]): Extract<AcademyEvent, { type: "spell-cast" }>[] {
-    return events.filter(
-      (event): event is Extract<AcademyEvent, { type: "spell-cast" }> =>
-        event.type === "spell-cast"
-    );
-  }
-}
+import { WizardRepository, SpellRepository } from "./repositories";
+import { AcademyService } from "./services/academy-service";
+import { isWizard } from "./guards";
 
 const wizards = new WizardRepository();
 const spells = new SpellRepository();

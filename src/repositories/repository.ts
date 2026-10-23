@@ -1,5 +1,4 @@
-import type { Wizard, Spell } from "./types";
-import { Log, MeasureTime } from "./decorators";
+import { Log, MeasureTime } from "../decorators";
 
 export class Repository<T extends { id: number }> {
   private items: T[] = [];
@@ -27,6 +26,3 @@ export class Repository<T extends { id: number }> {
     return true;
   }
 }
-
-export class WizardRepository extends Repository<Wizard> {}
-export class SpellRepository extends Repository<Spell> {}

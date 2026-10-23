@@ -13,6 +13,7 @@ import { WizardRepository, SpellRepository } from "./repositories";
 import { AcademyService } from "./services/academy-service";
 import { isWizard } from "./guards";
 import { handleSpellCast } from "./handlers/spell-cast-handler";
+import { SpellCalculator } from "./services/spell-calculator";
 
 const wizards = new WizardRepository();
 const spells = new SpellRepository();
@@ -106,6 +107,12 @@ console.log(academy.getSpellEvents(events));
 
 console.log("\n--- Ex 3 : handleSpellCast ---");
 handleSpellCast({ type: "spell-cast", wizardId: 1, spellName: "Expelliarmus" });
+
+console.log("\n--- Ex 5 : Cache ---");
+const calculator = new SpellCalculator();
+console.log(calculator.calculatePower(10, 3)); // MISS
+console.log(calculator.calculatePower(10, 3)); // HIT
+console.log(calculator.calculatePower(5, 2));  // MISS
 
 // Compile-time demonstrations: these aliases are checked by TypeScript.
 type CastArguments = Parameters<AcademyService["castSpell"]>;

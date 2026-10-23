@@ -1,4 +1,10 @@
-import type { AcademyEvent, House, WizardSummary, WizardUpdate } from "../types";
+import type {
+  AcademyEvent,
+  House,
+  SpellCastEvent,
+  WizardSummary,
+  WizardUpdate,
+} from "../types";
 import { WizardRepository, SpellRepository } from "../repositories";
 import { Log } from "../decorators";
 
@@ -30,10 +36,9 @@ export class AcademyService {
     return this.wizards.update(id, changes);
   }
 
-  getSpellEvents(events: AcademyEvent[]): Extract<AcademyEvent, { type: "spell-cast" }>[] {
+  getSpellEvents(events: AcademyEvent[]): SpellCastEvent[] {
     return events.filter(
-      (event): event is Extract<AcademyEvent, { type: "spell-cast" }> =>
-        event.type === "spell-cast"
+      (event): event is SpellCastEvent => event.type === "spell-cast"
     );
   }
 }

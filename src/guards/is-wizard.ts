@@ -1,5 +1,5 @@
 import type { Wizard } from "../types";
-import { isHouse } from "./house.guard";
+import { isHouse } from "./is-house";
 
 // Type guard: safely narrow unknown data to a Wizard.
 export function isWizard(value: unknown): value is Wizard {

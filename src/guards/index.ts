@@ -1,2 +1,2 @@
-export { isHouse } from "./house.guard";
-export { isWizard } from "./wizard.guard";
+export { isHouse } from "./is-house";
+export { isWizard } from "./is-wizard";
